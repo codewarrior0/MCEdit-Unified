@@ -19,12 +19,15 @@ def organizeParameters(func):
     return params
 
 def getDescription(desc):
-    return desc.split(":")[0].strip()
+    if desc is not None:
+        return desc.split(":")[0].strip()
+    else:
+        return "**Undocumented**"
 
 
 def create_docs():
     lines = []
-    classes = inspect.getmembers(test, inspect.isclass)
+    classes = inspect.getmembers(infiniteworld, inspect.isclass)
     for clazz in classes:
         lines.append("## "+str(clazz[0])+"\n\n")
         print clazz[1]
@@ -41,7 +44,7 @@ def create_docs():
                 params = organizeParameters(method[1].func_code.co_varnames)
                 print params
                 print "| {0} | {1} | {2} |".format(method[0], params, getDescription(method[1].__doc__))
-                lines.append("| {0} | {1} | {2} |".format(method[0], params, getDescription(method[1].__doc__)))
+                lines.append("| {0} | {1} | {2} |\n".format(method[0], params, getDescription(method[1].__doc__)))
         lines.append("\n")
         '''
         for method in methods:
