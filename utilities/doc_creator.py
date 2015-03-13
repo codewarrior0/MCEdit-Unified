@@ -18,6 +18,9 @@ def organizeParameters(func):
     params = ", ".join(params)
     return params
 
+def getDescription(desc):
+    return desc.split(":")[0].strip()
+
 
 def create_docs():
     lines = []
@@ -37,8 +40,8 @@ def create_docs():
                 print method[1].__doc__
                 params = organizeParameters(method[1].func_code.co_varnames)
                 print params
-                print "| {0} | {1} | {2} |".format(method[0], params, method[1].__doc__)
-                lines.append("| {0} | {1} | {2} |".format(method[0], params, method[1].__doc__))
+                print "| {0} | {1} | {2} |".format(method[0], params, getDescription(method[1].__doc__))
+                lines.append("| {0} | {1} | {2} |".format(method[0], params, getDescription(method[1].__doc__)))
         lines.append("\n")
         '''
         for method in methods:
